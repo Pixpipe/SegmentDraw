@@ -1,0 +1,830 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400,500,700' rel='stylesheet' type='text/css'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='container'>
+    <div class='clearfix md-mxn2'>
+      <div class='fixed md-show fix-3 overflow-auto max-height-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block field'
+            type='text' />
+          <div id='toc'>
+              <a
+                href='#SegmentDraw'
+                class='block bold'>
+                SegmentDraw
+              </a>
+                <a
+                  href='#SegmentDraw._continueSegment'
+                  class='regular block'>
+                  #_continueSegment
+                </a>
+                <a
+                  href='#SegmentDraw._disableControl'
+                  class='regular block'>
+                  #_disableControl
+                </a>
+                <a
+                  href='#SegmentDraw._enableControl'
+                  class='regular block'>
+                  #_enableControl
+                </a>
+                <a
+                  href='#SegmentDraw._getOption'
+                  class='regular block'>
+                  #_getOption
+                </a>
+                <a
+                  href='#SegmentDraw._initEvents'
+                  class='regular block'>
+                  #_initEvents
+                </a>
+                <a
+                  href='#SegmentDraw._initSamplingSegment'
+                  class='regular block'>
+                  #_initSamplingSegment
+                </a>
+                <a
+                  href='#SegmentDraw._onKeyDown'
+                  class='regular block'>
+                  #_onKeyDown
+                </a>
+                <a
+                  href='#SegmentDraw._onKeyUp'
+                  class='regular block'>
+                  #_onKeyUp
+                </a>
+                <a
+                  href='#SegmentDraw._onMouseDown'
+                  class='regular block'>
+                  #_onMouseDown
+                </a>
+                <a
+                  href='#SegmentDraw._onMouseMove'
+                  class='regular block'>
+                  #_onMouseMove
+                </a>
+                <a
+                  href='#SegmentDraw._onMouseUp'
+                  class='regular block'>
+                  #_onMouseUp
+                </a>
+                <a
+                  href='#SegmentDraw._raycast'
+                  class='regular block'>
+                  #_raycast
+                </a>
+                <a
+                  href='#SegmentDraw._requireThree'
+                  class='regular block'>
+                  #_requireThree
+                </a>
+                <a
+                  href='#SegmentDraw._restoreOrbitData'
+                  class='regular block'>
+                  #_restoreOrbitData
+                </a>
+                <a
+                  href='#SegmentDraw._saveOrbitData'
+                  class='regular block'>
+                  #_saveOrbitData
+                </a>
+                <a
+                  href='#SegmentDraw._startSegment'
+                  class='regular block'>
+                  #_startSegment
+                </a>
+                <a
+                  href='#SegmentDraw._triggerEvents'
+                  class='regular block'>
+                  #_triggerEvents
+                </a>
+                <a
+                  href='#SegmentDraw.constructor'
+                  class='regular block'>
+                  #constructor
+                </a>
+                <a
+                  href='#SegmentDraw.enable'
+                  class='regular block'>
+                  #enable
+                </a>
+                <a
+                  href='#SegmentDraw.hide'
+                  class='regular block'>
+                  #hide
+                </a>
+                <a
+                  href='#SegmentDraw.on'
+                  class='regular block'>
+                  #on
+                </a>
+                <a
+                  href='#SegmentDraw.setBoundingBox'
+                  class='regular block'>
+                  #setBoundingBox
+                </a>
+          </div>
+        </div>
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2'>
+<div class='py1'><section class='py2 clearfix'>
+  <h2 id='SegmentDraw' class='mt0'>
+    SegmentDraw<span class='gray'>(container, scene, camera, options)</span>
+  </h2>
+  <p>SegmentDraw is a helper to draw a segment on a THREE.Object3D using the mouse pointer.
+The first and last point are on the surface of the container given in argument to the constructor</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>container</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>scene</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>camera</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>options</strong>
+            (default <code>{}</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Instance members</h4>
+        <div class='collapsible' id='SegmentDraw._continueSegment'>
+          <a href='#SegmentDraw._continueSegment'>
+            <code>
+              #_continueSegment<span class='gray'>(point)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Edit the last point of the segment</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._continueSegment' class='mt0'>
+                _continueSegment<span class='gray'>(point)</span>
+              </h2>
+              <p>Edit the last point of the segment</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code>THREE.Vector3</code> <strong>point</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>most likely given by a raycaster</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._disableControl'>
+          <a href='#SegmentDraw._disableControl'>
+            <code>
+              #_disableControl<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Disable the orbit/trackball control</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._disableControl' class='mt0'>
+                _disableControl<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Disable the orbit/trackball control</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._enableControl'>
+          <a href='#SegmentDraw._enableControl'>
+            <code>
+              #_enableControl<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+enable the orbit/trackball control</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._enableControl' class='mt0'>
+                _enableControl<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            enable the orbit/trackball control</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._getOption'>
+          <a href='#SegmentDraw._getOption'>
+            <code>
+              #_getOption<span class='gray'>(optionsObject, key, defaultValue)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+get a value from the option argument in the constructor</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._getOption' class='mt0'>
+                _getOption<span class='gray'>(optionsObject, key, defaultValue)</span>
+              </h2>
+              <p>[PRIVATE]
+            get a value from the option argument in the constructor</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>optionsObject</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li> <strong>key</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li> <strong>defaultValue</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._initEvents'>
+          <a href='#SegmentDraw._initEvents'>
+            <code>
+              #_initEvents<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Initialize all the mouse/keyboard events</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._initEvents' class='mt0'>
+                _initEvents<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Initialize all the mouse/keyboard events</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._initSamplingSegment'>
+          <a href='#SegmentDraw._initSamplingSegment'>
+            <code>
+              #_initSamplingSegment<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Init the segment object with size 0 and invisible</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._initSamplingSegment' class='mt0'>
+                _initSamplingSegment<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Init the segment object with size 0 and invisible</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._onKeyDown'>
+          <a href='#SegmentDraw._onKeyDown'>
+            <code>
+              #_onKeyDown<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE - EVENT]
+when a key from the keyboard is released. Refreshes the current state</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._onKeyDown' class='mt0'>
+                _onKeyDown<span class='gray'>(evt)</span>
+              </h2>
+              <p>[PRIVATE - EVENT]
+            when a key from the keyboard is released. Refreshes the current state</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._onKeyUp'>
+          <a href='#SegmentDraw._onKeyUp'>
+            <code>
+              #_onKeyUp<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE - EVENT]
+when a key from the keyboard is pressed. Refreshes the current state</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._onKeyUp' class='mt0'>
+                _onKeyUp<span class='gray'>(evt)</span>
+              </h2>
+              <p>[PRIVATE - EVENT]
+            when a key from the keyboard is pressed. Refreshes the current state</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._onMouseDown'>
+          <a href='#SegmentDraw._onMouseDown'>
+            <code>
+              #_onMouseDown<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE - EVENT]
+when mouse is clicked, cast a ray if the right keyboard key is maintained pushed</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._onMouseDown' class='mt0'>
+                _onMouseDown<span class='gray'>(evt)</span>
+              </h2>
+              <p>[PRIVATE - EVENT]
+            when mouse is clicked, cast a ray if the right keyboard key is maintained pushed</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._onMouseMove'>
+          <a href='#SegmentDraw._onMouseMove'>
+            <code>
+              #_onMouseMove<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE - EVENT]
+when mouse is moving, refreshes the internal normalized mouse position</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._onMouseMove' class='mt0'>
+                _onMouseMove<span class='gray'>(evt)</span>
+              </h2>
+              <p>[PRIVATE - EVENT]
+            when mouse is moving, refreshes the internal normalized mouse position</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._onMouseUp'>
+          <a href='#SegmentDraw._onMouseUp'>
+            <code>
+              #_onMouseUp<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE - EVENT]
+when mouse is releasing</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._onMouseUp' class='mt0'>
+                _onMouseUp<span class='gray'>(evt)</span>
+              </h2>
+              <p>[PRIVATE - EVENT]
+            when mouse is releasing</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._raycast'>
+          <a href='#SegmentDraw._raycast'>
+            <code>
+              #_raycast<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Performs a raycasting on the children of the plane container, then based on the
+active state, take a decision of what to do.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._raycast' class='mt0'>
+                _raycast<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Performs a raycasting on the children of the plane container, then based on the
+            active state, take a decision of what to do.</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._requireThree'>
+          <a href='#SegmentDraw._requireThree'>
+            <code>
+              #_requireThree<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Hacky way to make sure THREE is around, from with a browser or a npm package</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._requireThree' class='mt0'>
+                _requireThree<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Hacky way to make sure THREE is around, from with a browser or a npm package</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._restoreOrbitData'>
+          <a href='#SegmentDraw._restoreOrbitData'>
+            <code>
+              #_restoreOrbitData<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Helper method to call before re-enabling the controls</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._restoreOrbitData' class='mt0'>
+                _restoreOrbitData<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Helper method to call before re-enabling the controls</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._saveOrbitData'>
+          <a href='#SegmentDraw._saveOrbitData'>
+            <code>
+              #_saveOrbitData<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Helper method to call before disabling the controls</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._saveOrbitData' class='mt0'>
+                _saveOrbitData<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Helper method to call before disabling the controls</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._startSegment'>
+          <a href='#SegmentDraw._startSegment'>
+            <code>
+              #_startSegment<span class='gray'>(point)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Start the segment drawing with a given point</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._startSegment' class='mt0'>
+                _startSegment<span class='gray'>(point)</span>
+              </h2>
+              <p>[PRIVATE]
+            Start the segment drawing with a given point</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code>THREE.Vector3</code> <strong>point</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>most likely given by a raycaster</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw._triggerEvents'>
+          <a href='#SegmentDraw._triggerEvents'>
+            <code>
+              #_triggerEvents<span class='gray'>(eventName, args)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Call a registered event</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw._triggerEvents' class='mt0'>
+                _triggerEvents<span class='gray'>(eventName, args)</span>
+              </h2>
+              <p>Call a registered event</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>eventName</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>name of the event</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>args</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>array of argument to be transmited to the callback</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw.constructor'>
+          <a href='#SegmentDraw.constructor'>
+            <code>
+              #constructor<span class='gray'>(container, scene, camera, options)</span>
+            </code>
+            <div class='force-inline'>
+              
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw.constructor' class='mt0'>
+                constructor<span class='gray'>(container, scene, camera, options)</span>
+              </h2>
+              
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code>THREE.Object3D</code> <strong>container</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>an object that contains 3 orthogonal planes</p>
+            
+                      </div>
+                    </li>
+                    <li><code>THREE.Scene</code> <strong>scene</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>scene to add the segment to</p>
+            
+                      </div>
+                    </li>
+                    <li><code>THREE.Camera</code> <strong>camera</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>camera</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code> <strong>options</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>{mouse: THREE.Vector2, control: THREE.OrbitControl, drawKey: String, ,hideKey: String, segmentThickness: Number, segmentColor: String}.
+            Default values: drawKey=&quot;Space&quot;, hideKey=&quot;Escape&quot;, segmentThickness=6, segmentColor=&quot;#6600aa&quot;</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw.enable'>
+          <a href='#SegmentDraw.enable'>
+            <code>
+              #enable<span class='gray'>(bool)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Enable or disable the SegmentDraw instance</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw.enable' class='mt0'>
+                enable<span class='gray'>(bool)</span>
+              </h2>
+              <p>Enable or disable the SegmentDraw instance</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code> <strong>bool</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>true: enable, false: disable</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw.hide'>
+          <a href='#SegmentDraw.hide'>
+            <code>
+              #hide<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Hide the segment (does NOT remove it)</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw.hide' class='mt0'>
+                hide<span class='gray'></span>
+              </h2>
+              <p>Hide the segment (does NOT remove it)</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw.on'>
+          <a href='#SegmentDraw.on'>
+            <code>
+              #on<span class='gray'>(eventName, callback)</span>
+            </code>
+            <div class='force-inline'>
+              <p>specify an event</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw.on' class='mt0'>
+                on<span class='gray'>(eventName, callback)</span>
+              </h2>
+              <p>specify an event</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>eventName</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li> <strong>callback</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='SegmentDraw.setBoundingBox'>
+          <a href='#SegmentDraw.setBoundingBox'>
+            <code>
+              #setBoundingBox<span class='gray'>(b)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Define a boundingbox to restrict the raycasting and the shift</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='SegmentDraw.setBoundingBox' class='mt0'>
+                setBoundingBox<span class='gray'>(b)</span>
+              </h2>
+              <p>Define a boundingbox to restrict the raycasting and the shift</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code>TROIS.Box3</code> <strong>b</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>bounding box</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+</section>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

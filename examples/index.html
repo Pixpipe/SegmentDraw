@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name=keywords  content="plane, rotation, translation, three, threejs" />
+  <meta name=description  content="Helper to rotate and translate a plane sytem along/around its normal vectors" />
+  <meta  property=og:title content="SegmentDraw Demo" />
+  <meta  property=og:description content="Helper to rotate and translate a plane sytem along/around its normal vectors" />
+
+  <title>SegmentDraw Demo</title>
+
+  
+  <style>
+
+
+  body {
+    margin:0;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 18px;
+    overflow: hidden;
+    cursor: default;;
+  }
+
+  a {
+    text-decoration: none;
+    color: #03a9f4;
+    transition: all 0.2s;
+  }
+
+  a:hover {
+    color: #f17878;
+  }
+
+  key {
+    color: #333;
+    background: #e8e8e8;
+    padding: 3px 7px 3px 7px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: #a0a0a0;
+    border-bottom-width: 3px;
+  }
+  
+  #info {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 5px;
+  }
+
+  #footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 15px;
+    font-family: inherit;
+    pointer-events: none;
+  }
+
+  </style>
+
+  <script src="https://threejs.org/build/three.min.js"></script>
+  <script src='https://threejs.org/examples/js/libs/dat.gui.min.js'></script>
+  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  
+  <script src="../dist/SegmentDraw.js"></script>
+  
+
+</head>
+<body>
+
+  <div id="info">
+    SegmentDraw ★ <a href="https://github.com/jonathanlurie/SegmentDraw" target="_blank">fork it on Github!</a>
+  </div>
+
+  
+  <div id="footer">
+    <p>Hold key <key>Space</key> and click to stard drwing a line,</p>
+    <p>Press <key>Esc</key> to hide the line.</p>
+  </div>
+
+
+  <script>
+
+  var gui = null;
+  var guiParam = {};
+  var stats = null;
+  var renderer = null;
+  var scene = null;
+  var camera = null;
+  var container = null;
+  var control = null;
+  var sphere = null;
+  var segmentDraw = null;
+
+
+  function init(){
+
+    renderer = new THREE.WebGLRenderer( { antialias: false } );
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.01, 500 );
+    
+    var axisHelper = new THREE.AxisHelper( 1 );
+    scene.add( axisHelper );
+    controls = new THREE.OrbitControls( camera, renderer.domElement );
+        
+    initPlanes();
+
+    var geometry = new THREE.SphereGeometry( 0.02, 32, 32 );
+    var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+    sphere = new THREE.Mesh( geometry, material );
+    scene.add( sphere );
+
+    var camD = 10;
+    camera.position.x = camD ;
+    camera.position.y = camD;
+    camera.position.z = camD;
+    camera.lookAt( new THREE.Vector3(0, 0, 0));
+
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setClearColor( 0xEEEEEE, 1 );
+    document.body.appendChild( renderer.domElement );
+
+    segmentDraw = new SegmentDraw.SegmentDraw( container, scene, camera, {controls: controls} );
+
+    /*
+    // disable the segmentDraw
+    segmentDraw.enable( false )
+    */
+    
+    /*
+    // define a bounding box where you can only draw inside
+    segmentDraw.setBoundingBox( new THREE.Box3( 
+      new THREE.Vector3(-1, -1, -1),  // min
+      new THREE.Vector3(1, 1, 1)      // max
+    ))
+    */
+    
+    segmentDraw.on( "startInteraction", function(){
+      console.log( "Interaction is starting :)" );
+    })
+    
+    segmentDraw.on( "stopInteraction", function(){
+      console.log( "Interaction is over :(" );
+    })
+    
+    segmentDraw.on( "draw", function( begin, end){
+      console.log( "------------------" );
+      console.log( begin );
+      console.log( end );
+    })
+    
+  }
+
+
+  function initPlanes(){
+    container = new THREE.Object3D();
+    
+    var geometry = new THREE.PlaneGeometry( 10, 10, 1 );
+    var material = new THREE.MeshBasicMaterial( {side: THREE.DoubleSide} );
+    
+    var planeX = new THREE.Mesh( geometry, material.clone() );
+    planeX.rotateY( Math.PI / 2 );
+    planeX.material.color.set( 0xff8888 );
+    planeX.name = "planeX";
+    //planeX.normalV = new THREE.Vector3(1, 0, 0);
+    
+    var planeY = new THREE.Mesh( geometry, material.clone() );
+    planeY.rotateX( Math.PI / 2);
+    planeY.material.color.set( 0xccffcc );
+    planeY.name = "planeY";
+    //planeY.normalV = new THREE.Vector3(0, 1, 0);
+    
+    var planeZ = new THREE.Mesh( geometry, material.clone() );
+    planeZ.material.color.set( 0x8888ff );
+    planeZ.name = "planeZ";
+    //planeZ.normalV = new THREE.Vector3(0, 0, 1);
+    
+    container.add( planeX );
+    container.add( planeY );
+    container.add( planeZ );
+
+    console.log( container );
+
+    //container.scale.set(100, 100, 100);
+    /*
+    var axisHelper = new THREE.AxisHelper( 0.1 );
+    axisHelper.position.set(0.1, -0.01, 0.1)
+    container.add( axisHelper );
+    */
+    scene.add( container );
+  }
+
+  function render() {
+    requestAnimationFrame( render );
+    renderer.render( scene, camera );
+  };
+
+
+  window.addEventListener( 'resize', function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+  }, false );
+
+
+  init();
+  render();
+
+  </script>
+</body>
+</html>
