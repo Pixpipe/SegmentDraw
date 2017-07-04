@@ -15,63 +15,63 @@ var TROIS = null;
 * The first and last point are on the surface of the container given in argument to the constructor
 */
 class SegmentDraw {
-  
+
   /**
   * @param {THREE.Object3D} container - an object that contains 3 orthogonal planes
   * @param {THREE.Scene} scene - scene to add the segment to
   * @param {THREE.Camera} camera - camera
-  * @param {Object} options - {mouse: THREE.Vector2, control: THREE.OrbitControl, drawKey: String, ,hideKey: String, segmentThickness: Number, segmentColor: String}. 
+  * @param {Object} options - {mouse: THREE.Vector2, control: THREE.OrbitControl, drawKey: String, ,hideKey: String, segmentThickness: Number, segmentColor: String}.
   * Default values: drawKey="Space", hideKey="Escape", segmentThickness=6, segmentColor="#6600aa"
   */
   constructor( container, scene, camera, options = {}){
     this._requireThree();
-    
+
     this._enabled = true;
-    
+
     // contains the three planes
     this._container = container;
-    
+
     // camera we use to cast rays
     this._camera = camera;
-    
+
     // the main scene, where to draw the segment
     this._scene = scene;
-    
+
     // to restrict the raycasting
     this._boundingBox = new TROIS.Box3( new TROIS.Vector3(-Infinity, -Infinity, -Infinity), new TROIS.Vector3(Infinity, Infinity, Infinity));
-    
+
     // orbit control or trackball control
     this._controls = this._getOption(options, "controls", null);
-    
+
     // the mouse coord can be passed by an extenal pointer
     this._mouse = this._getOption(options, "mouse", new TROIS.Vector2(Infinity, Infinity));
     this._useReferenceMouse = !!(options.mouse)
-    
+
     // 3D position (world) of the clicking
     this._pointClicked3D = null;
-    
+
     // to cast rays
     this._raycaster = new TROIS.Raycaster();
-    
+
     // the keyboard key to hold for drawing
     this._drawKey = this._getOption(options, "drawKey", "Space");
     this._hideKey = this._getOption(options, "hideKey", "Escape");
-    
+
     // segment properties
     this._segmentThickness = this._getOption(options, "segmentThickness", 6);
     this._segmentColor = this._getOption(options, "segmentColor", "#6600aa");
 
     this._mouseDown = false;
-    
+
     this._sampleSegment = {
       segment: null,
       started: false
     }
-    
+
     this._orbitData = {}
-    
+
     this._drawModeEnabled = false;
-    
+
     // all the following are array of events
     this._customEvents = {
       startInteraction: [],
@@ -82,31 +82,31 @@ class SegmentDraw {
     this._initSamplingSegment();
     this._initEvents();
   }
-  
-  
+
+
   /**
   * [PRIVATE]
   * Init the segment object with size 0 and invisible
   */
   _initSamplingSegment(){
-    var material = new THREE.LineBasicMaterial({
+    var material = new TROIS.LineBasicMaterial({
       color: this._segmentColor,
       linewidth: this._segmentThickness,
       linecap: "square"
     });
 
-    var geometry = new THREE.Geometry();
-    
+    var geometry = new TROIS.Geometry();
+
     geometry.vertices.push(
-      new THREE.Vector3( 0, 0, 0 ),
-      new THREE.Vector3( 0, 0, 0 )
+      new TROIS.Vector3( 0, 0, 0 ),
+      new TROIS.Vector3( 0, 0, 0 )
     );
 
     this._sampleSegment = {
-      segment: new THREE.Line( geometry, material ),
+      segment: new TROIS.Line( geometry, material ),
       started: false
     }
-    
+
     this._sampleSegment.segment.name = "sampling_segment";
     this._sampleSegment.segment.visible = false;
     this._scene.add( this._sampleSegment.segment );
@@ -122,18 +122,18 @@ class SegmentDraw {
       TROIS = (window && window.THREE) || require('three');
     } catch(e) {
       // here, window.THREE does not exist (or not yet)
-      
+
       // trying to require
       try {
-        TROIS = require("three"); 
+        TROIS = require("three");
       } catch (e) {
         // here, require is not possible (we are certainly in a browser)
         console.error( e );
       }
     }
   }
-  
-  
+
+
   /**
   * [PRIVATE]
   * get a value from the option argument in the constructor
@@ -141,11 +141,11 @@ class SegmentDraw {
   _getOption(optionsObject, key, defaultValue){
     if(!optionsObject)
       return defaultValue;
-      
+
     return optionsObject[ key ] || defaultValue;
   }
 
-  
+
   /**
   * [PRIVATE]
   * Initialize all the mouse/keyboard events
@@ -157,8 +157,8 @@ class SegmentDraw {
     window.addEventListener( 'keyup', this._onKeyUp.bind(this), false );
     window.addEventListener( 'keydown', this._onKeyDown.bind(this), false );
   }
-  
-  
+
+
   /**
   * [PRIVATE - EVENT]
   * when mouse is moving, refreshes the internal normalized mouse position
@@ -166,19 +166,19 @@ class SegmentDraw {
   _onMouseMove( evt ){
     if( !this._enabled )
       return;
-    
+
     // do not recompute the unit mouse coord if we use an external mouse reference
     if(!this._useReferenceMouse){
       this._mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
       this._mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
-    
+
     if( this._sampleSegment.started ){
       this._continueSegment( this._raycast() );
     }
   }
-  
-  
+
+
   /**
   * [PRIVATE - EVENT]
   * when mouse is clicked, cast a ray if the right keyboard key is maintained pushed
@@ -186,15 +186,15 @@ class SegmentDraw {
   _onMouseDown( evt ){
     if( !this._enabled )
       return;
-      
+
     this._mouseDown = true;
-      
+
     if( this._drawModeEnabled ){
       this._startSegment( this._raycast() );
     }
   }
-  
-  
+
+
   /**
   * [PRIVATE]
   * Start the segment drawing with a given point
@@ -203,15 +203,15 @@ class SegmentDraw {
   _startSegment( point ){
     if( !point )
       return
-      
+
     this._sampleSegment.started = true;
     this._sampleSegment.segment.geometry.vertices[0].copy( point );
     this._sampleSegment.segment.geometry.vertices[1].copy( point );
     this._sampleSegment.segment.visible = true;
     this._sampleSegment.segment.geometry.verticesNeedUpdate = true
   }
-  
-  
+
+
   /**
   * Edit the last point of the segment
   * @param {THREE.Vector3} point - most likely given by a raycaster
@@ -219,17 +219,17 @@ class SegmentDraw {
   _continueSegment( point ){
     if( !point )
       return;
-      
+
     this._sampleSegment.segment.geometry.vertices[1].copy( point );
     this._sampleSegment.segment.geometry.verticesNeedUpdate = true
-    
+
     this._triggerEvents( "draw", [
       this._sampleSegment.segment.geometry.vertices[0].clone(),
       this._sampleSegment.segment.geometry.vertices[1].clone()
     ] )
   }
-  
-  
+
+
   /**
   * [PRIVATE - EVENT]
   * when mouse is releasing
@@ -237,12 +237,12 @@ class SegmentDraw {
   _onMouseUp( evt ){
     if( !this._enabled )
       return;
-      
+
     this._mouseDown = false;
     this._sampleSegment.started = false;
   }
-  
-  
+
+
   /**
   * [PRIVATE - EVENT]
   * when a key from the keyboard is pressed. Refreshes the current state
@@ -258,16 +258,16 @@ class SegmentDraw {
         this._enableControl();
         this._triggerEvents( "stopInteraction" );
         break;
-        
+
       case this._hideKey:
         this.hide();
         break;
-        
+
       default:
     }
   }
-  
-  
+
+
   /**
   * [PRIVATE - EVENT]
   * when a key from the keyboard is released. Refreshes the current state
@@ -275,7 +275,7 @@ class SegmentDraw {
   _onKeyDown( evt ){
     if( !this._enabled )
       return;
-      
+
     if( evt.code === this._drawKey && !this._drawModeEnabled){
       this._drawModeEnabled = true;
       this._disableControl();
@@ -283,7 +283,7 @@ class SegmentDraw {
     }
   }
 
-  
+
   /**
   * Define a boundingbox to restrict the raycasting and the shift
   * @param {TROIS.Box3} b - bounding box
@@ -291,16 +291,16 @@ class SegmentDraw {
   setBoundingBox( b ){
     this._boundingBox = b.clone();
   }
-  
-  
+
+
   /**
   * Hide the segment (does NOT remove it)
   */
   hide(){
     this._sampleSegment.segment.visible = false;
   }
-  
-  
+
+
   /**
   * [PRIVATE]
   * Performs a raycasting on the children of the plane container, then based on the
@@ -309,16 +309,16 @@ class SegmentDraw {
   _raycast(){
     this._raycaster.setFromCamera( this._mouse, this._camera );
     var intersects = this._raycaster.intersectObject( this._container, true );
-    
+
     for(var i=0; i<intersects.length; i++){
       if( this._boundingBox.containsPoint( intersects[i].point) ){
         return intersects[i].point;
       }
     }
-    
+
     return null;
   }
-  
+
 
   /**
   * [PRIVATE]
@@ -327,15 +327,15 @@ class SegmentDraw {
   _disableControl(){
     if(!this._controls)
       return;
-      
+
     if(this._controls.enabled){
       this._saveOrbitData();
     }
-      
+
     this._controls.enabled = false;
   }
-  
-  
+
+
   /**
   * [PRIVATE]
   * enable the orbit/trackball control
@@ -343,16 +343,16 @@ class SegmentDraw {
   _enableControl(){
     if(!this._controls)
       return;
-      
+
     // if already enables
     if( this._controls.enabled )
       return;
-      
+
     this._controls.enabled = true;
     this._restoreOrbitData()
   }
-  
-  
+
+
   /**
   * [PRIVATE]
   * Helper method to call before disabling the controls
@@ -379,8 +379,8 @@ class SegmentDraw {
     this._controls.zoom0 = this._orbitData.zoom;
     this._controls.reset();
   }
-  
-  
+
+
   /**
   * Enable or disable the SegmentDraw instance
   * @param {Boolean} bool - true: enable, false: disable
@@ -388,8 +388,8 @@ class SegmentDraw {
   enable( bool ){
     this._enabled = bool;
   }
-  
-  
+
+
   /**
   * specify an event
   */
@@ -400,8 +400,8 @@ class SegmentDraw {
       }
     }
   }
-  
-  
+
+
   /**
   * Call a registered event
   * @param {String} eventName - name of the event
@@ -410,13 +410,13 @@ class SegmentDraw {
   _triggerEvents( eventName, args=null ){
     if( eventName in this._customEvents ){
       var events = this._customEvents[eventName];
-      
+
       for(var i=0; i<events.length; i++){
         events[i].apply(null, args)
       }
     }
   }
-  
+
 } /* END of class SegmentDraw */
 
 export { SegmentDraw }
