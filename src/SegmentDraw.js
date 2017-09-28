@@ -221,15 +221,29 @@ class SegmentDraw {
       return;
 
     this._sampleSegment.segment.geometry.vertices[1].copy( point );
-    this._sampleSegment.segment.geometry.verticesNeedUpdate = true
+    this._sampleSegment.segment.geometry.verticesNeedUpdate = true;
 
     this._triggerEvents( "draw", [
       this._sampleSegment.segment.geometry.vertices[0].clone(),
       this._sampleSegment.segment.geometry.vertices[1].clone()
-    ] )
+    ]);
   }
 
-
+  /**
+   * Draw a line segment between two given points.
+   * @param  {THREE.Vector3} start
+   * @param  {THREE.Vector3} end
+   */
+  drawSegment(begin, end) {
+    this._sampleSegment.segment.geometry.vertices[0].copy( begin );
+    this._sampleSegment.segment.geometry.vertices[1].copy( end );
+    this._sampleSegment.segment.visible = true;
+    this._sampleSegment.segment.geometry.verticesNeedUpdate = true
+    this._triggerEvents( "draw", [
+      this._sampleSegment.segment.geometry.vertices[0].clone(),
+      this._sampleSegment.segment.geometry.vertices[1].clone()
+    ]);
+  }
   /**
   * [PRIVATE - EVENT]
   * when mouse is releasing
