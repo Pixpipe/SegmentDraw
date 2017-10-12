@@ -57,7 +57,7 @@ class SegmentDraw {
     this._hideKey = this._getOption(options, "hideKey", "Escape");
 
     // segment properties
-    this.radius = this._getOption(options, "radius", 0.5);
+    this._radius = this._getOption(options, "radius", 0.5);
     this._segmentThickness = this._getOption(options, "segmentThickness", 6);
     this._segmentColor = this._getOption(options, "segmentColor", "#6600aa");
 
@@ -100,7 +100,7 @@ class SegmentDraw {
       new TROIS.Vector3( 0, 0, 0 ),
       new TROIS.Vector3( 0, 0, 0 )
     );
-    var params = [path, 10, this.radius, 8, false];
+    var params = [path, 10, this._radius, 8, false];
     var geometry = new TROIS.TubeBufferGeometry(...params);
     this._sampleSegment = {
       params: params,

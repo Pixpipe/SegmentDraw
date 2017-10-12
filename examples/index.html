@@ -105,7 +105,7 @@
 
   function init(){
 
-    renderer = new THREE.WebGLRenderer( { antialias: false } );
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.01, 500 );
     
@@ -131,7 +131,7 @@
     renderer.setClearColor( 0xEEEEEE, 1 );
     document.body.appendChild( renderer.domElement );
 
-    segmentDraw = new SegmentDraw.SegmentDraw( container, scene, camera, {controls: controls} );
+    segmentDraw = new SegmentDraw.SegmentDraw( container, scene, camera, {controls: controls, radius: 0.03} );
 
     /*
     // disable the segmentDraw
