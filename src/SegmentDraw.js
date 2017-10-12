@@ -9,7 +9,6 @@
 // the jacky way to get THREE from a browser or npm
 var TROIS = null;
 
-
 /**
 * SegmentDraw is a helper to draw a segment on a THREE.Object3D using the mouse pointer.
 * The first and last point are on the surface of the container given in argument to the constructor
@@ -58,6 +57,7 @@ class SegmentDraw {
     this._hideKey = this._getOption(options, "hideKey", "Escape");
 
     // segment properties
+    this.radius = this._getOption(options, "radius", 0.5);
     this._segmentThickness = this._getOption(options, "segmentThickness", 6);
     this._segmentColor = this._getOption(options, "segmentColor", "#6600aa");
 
@@ -95,17 +95,18 @@ class SegmentDraw {
       linecap: "square"
     });
 
-    var geometry = new TROIS.Geometry();
 
-    geometry.vertices.push(
+    var path = new TROIS.LineCurve(
       new TROIS.Vector3( 0, 0, 0 ),
       new TROIS.Vector3( 0, 0, 0 )
     );
-
+    var params = [path, 10, this.radius, 8, false];
+    var geometry = new TROIS.TubeBufferGeometry(...params);
     this._sampleSegment = {
-      segment: new TROIS.Line( geometry, material ),
+      params: params,
+      segment: new TROIS.Mesh( geometry, material ),
       started: false
-    }
+    };
 
     this._sampleSegment.segment.name = "sampling_segment";
     this._sampleSegment.segment.visible = false;
@@ -194,7 +195,15 @@ class SegmentDraw {
     }
   }
 
-
+  /**
+  * [PRIVATE]
+  * generate the tube geometry of the line segment.
+  */
+  _makeTubeGeometry() {
+    this._sampleSegment.segment.geometry =
+      new TROIS.TubeBufferGeometry(...this._sampleSegment.params);
+  }
+  
   /**
   * [PRIVATE]
   * Start the segment drawing with a given point
@@ -204,13 +213,13 @@ class SegmentDraw {
     if( !point )
       return
 
+    var DELTA = new TROIS.Vector3(0.01, 0.01, 0.01);
     this._sampleSegment.started = true;
-    this._sampleSegment.segment.geometry.vertices[0].copy( point );
-    this._sampleSegment.segment.geometry.vertices[1].copy( point );
+    this._sampleSegment.params[0].v1.copy( point )
+    this._sampleSegment.params[0].v2.addVectors(point, DELTA);
+    this._makeTubeGeometry();
     this._sampleSegment.segment.visible = true;
-    this._sampleSegment.segment.geometry.verticesNeedUpdate = true
   }
-
 
   /**
   * Edit the last point of the segment
@@ -219,13 +228,11 @@ class SegmentDraw {
   _continueSegment( point ){
     if( !point )
       return;
-
-    this._sampleSegment.segment.geometry.vertices[1].copy( point );
-    this._sampleSegment.segment.geometry.verticesNeedUpdate = true;
-
+    this._sampleSegment.params[0].v2.copy( point );
+    this._makeTubeGeometry();
     this._triggerEvents( "draw", [
-      this._sampleSegment.segment.geometry.vertices[0].clone(),
-      this._sampleSegment.segment.geometry.vertices[1].clone()
+      this._sampleSegment.params[0].v1.clone(),
+      this._sampleSegment.params[0].v2.clone()
     ]);
   }
 
@@ -235,13 +242,13 @@ class SegmentDraw {
    * @param  {THREE.Vector3} end
    */
   drawSegment(begin, end) {
-    this._sampleSegment.segment.geometry.vertices[0].copy( begin );
-    this._sampleSegment.segment.geometry.vertices[1].copy( end );
+    this._sampleSegment.params[0].v1.copy( begin );
+    this._sampleSegment.params[0].v2.copy( end );
+    this._makeTubeGeometry();
     this._sampleSegment.segment.visible = true;
-    this._sampleSegment.segment.geometry.verticesNeedUpdate = true
     this._triggerEvents( "draw", [
-      this._sampleSegment.segment.geometry.vertices[0].clone(),
-      this._sampleSegment.segment.geometry.vertices[1].clone()
+      this._sampleSegment.params[0].v1.clone(),
+      this._sampleSegment.params[0].v2.clone()
     ]);
   }
   /**
