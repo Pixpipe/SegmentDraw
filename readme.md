@@ -1,5 +1,5 @@
-[[DEMO]](http://me.jonathanlurie.fr/SegmentDraw/examples)  
-[[DOC]](http://me.jonathanlurie.fr/SegmentDraw/doc)  
+[[DEMO]](http://pixpipe.github.io/SegmentDraw/examples/)  
+[[DOC]](http://pixpipe.github.io/SegmentDraw/doc)  
 
 ## Instanciation
 
